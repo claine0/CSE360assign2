@@ -49,7 +49,7 @@ public class SimpleList {
 		else {
 			System.out.println("not in array");
 		}
-		if(empty_elements>=Math.floor(1/4.0*list.length)) {
+		if(empty_elements>Math.floor(1/4.0*list.length)&&list.length-empty_elements>1) {
 			for(int index=0;index<list.length;index++) {
 				copylist[index]=list[index];
 			}
@@ -90,6 +90,46 @@ public class SimpleList {
 		else {
 			return search_index;
 		}
+	}
+	
+	public void append(int append_input) {
+		count++;
+		int[] copylist=new int[list.length];
+		if(count<list.length) {
+			list[count]=append_input;
+		}
+		else {
+			for(int index=0;index<copylist.length;index++) {
+				copylist[index]=list[index];
+			}
+			list=new int[copylist.length+(int) Math.floor(list.length*(1/2.0))];
+			for(int index=0;index<copylist.length;index++) {
+				list[index]=copylist[index];
+			}
+			list[count]=append_input;
+		}
+	}
+	
+	public int first() {
+		if(count!=0) {
+			return list[0];
+		}
+		else {
+			return -1;
+		}
+	}
+	
+	public int last() {
+		if(count!=0) {
+			return list[count];
+		}
+		else {
+			return -1;
+		}
+	}
+	
+	public int size() {
+		return list.length;
 	}
 	
 }
