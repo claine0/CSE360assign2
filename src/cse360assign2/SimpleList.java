@@ -15,6 +15,8 @@ public class SimpleList {
 	public void add(int add_input) {
 		count++;
 		int[] templist=new int[list.length];
+		int[] copylist=new int[list.length];
+		if(count<list.length) {
 			for(int index=0;index<list.length-1;index++) {
 				templist[index+1]=list[index];
 			}
@@ -22,9 +24,22 @@ public class SimpleList {
 				list[index]=templist[index];
 			}
 			list[0]=add_input;
+		}
+		else {
+			for(int index=0;index<copylist.length;index++) {
+				copylist[index]=list[index];
+			}
+			list=new int[copylist.length+(int) Math.floor(list.length*(1/2.0))];
+			for(int index=1;index<copylist.length;index++) {
+				list[index]=copylist[index-1];
+			}
+			list[0]=add_input;
+		}
 	}
 	
 	public void remove(int remove_input) {
+		int empty_elements=list.length-count;
+		int[] copylist=new int[list.length];
 		if(search(remove_input)!=-1) {
 			for(int index=search(remove_input);index<list.length-1;index++) {
 				list[index]=list[index+1];
@@ -33,6 +48,15 @@ public class SimpleList {
 		}
 		else {
 			System.out.println("not in array");
+		}
+		if(empty_elements>=Math.floor(1/4.0*list.length)) {
+			for(int index=0;index<list.length;index++) {
+				copylist[index]=list[index];
+			}
+			list=new int[list.length-empty_elements];
+			for(int index=0;index<list.length;index++) {
+				list[index]=copylist[index];
+			}
 		}
 	}
 	
@@ -67,4 +91,5 @@ public class SimpleList {
 			return search_index;
 		}
 	}
+	
 }
